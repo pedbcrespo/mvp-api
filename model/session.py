@@ -1,7 +1,5 @@
 from configuration import db
-from model.enums import ProcedureType, Status
 from datetime import datetime
-
 from model.enums.session_status import SessionStatus
 
 class Session(db.Model):

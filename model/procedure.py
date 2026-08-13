@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from configuration import db
-from model.enums import ProcedureType, Status
+from model.enums.procedure_type import ProcedureType
 from model.enums.procedure_status import ProcedureStatus
 
 

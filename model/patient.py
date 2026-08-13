@@ -1,5 +1,5 @@
 from configuration import db
-from model import AbstractUser
+from model.abstract_user import AbstractUser
 
 class Patient(AbstractUser):
     __tablename__ = 'patients'

@@ -9,8 +9,6 @@ def create_app(config_override=None):
     init_db(app)
 
     app.register_blueprint(patient_bp)
-    # app.register_blueprint(demand_bp)
-    # app.register_blueprint(resident_bp)
     return app
 
 if __name__ == '__main__':

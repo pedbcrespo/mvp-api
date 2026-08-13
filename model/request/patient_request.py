@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from model.request import UserRequest
+from model.request.user_request import UserRequest
 
 @dataclass
 class PatientRequest(UserRequest):

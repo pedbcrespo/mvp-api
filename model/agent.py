@@ -1,5 +1,5 @@
 from configuration import db
-from model import AbstractUser
+from model.abstract_user import AbstractUser
 from model.enums import AgentType
 
 class Agent(AbstractUser):
