@@ -1,4 +1,4 @@
-from configuration.db_configuration import db
+from configuration import db
 from model import AbstractUser
 from model.enums import AgentType
 

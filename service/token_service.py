@@ -1,7 +1,7 @@
 import jwt
 from datetime import datetime, timedelta, timezone
 from model import AbstractUser
-from configuration.const_configuration import SECRET_KEY
+from configuration import SECRET_KEY
 
 
 class TokenService:

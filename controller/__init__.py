@@ -1,0 +1,1 @@
+from .patient_controller import patient_bp

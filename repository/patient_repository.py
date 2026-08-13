@@ -1,4 +1,4 @@
-from configuration.db_configuration import db
+from configuration import db
 from model import Patient
 from model.request import PatientRequest
 
@@ -11,6 +11,11 @@ class PatientRepository:
     def get(self, patient_id: int) -> Patient | None:
         patient = db.session.get(Patient, patient_id)
         return patient
+
+    def get_by_email(self, email: str) -> Patient | None:
+        patient = db.session.query(Patient).filter_by(email=email).first()
+        return patient
+
 
     def update(self, patient_id: int, data: PatientRequest) -> Patient | None:
         patient = db.session.get(Patient, patient_id)

@@ -1,4 +1,4 @@
-from configuration.db_configuration import db
+from configuration import db
 
 class Diagnosis(db.Model):
     __tablename__ = 'diagnoses'

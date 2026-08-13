@@ -1,4 +1,4 @@
-from configuration.db_configuration import db
+from configuration import db
 
 class Establishment(db.Model):
     __tablename__ = 'establishments'

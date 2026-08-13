@@ -1,4 +1,4 @@
-from configuration.db_configuration import db
+from configuration import db
 
 class AbstractUser(db.Model):
     __abstract__ = True
