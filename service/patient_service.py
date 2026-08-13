@@ -2,10 +2,12 @@ from repository import PatientRepository
 from model.request import PatientRequest
 from model import Patient
 from datetime import datetime
+from service.token_service import TokenService
 
 class PatientService:
     def __init__(self, repository: PatientRepository):
         self.repository = repository
+        self.token_service = TokenService()
 
     def get(self, patient_id: int) -> dict | None:
         patient = self.repository.get(patient_id)
@@ -16,7 +18,9 @@ class PatientService:
     def login(self, email: str, password: str) -> dict | None:
         patient = self.repository.get_by_email(email)
         if patient and patient.password == password:
-            return patient.to_dict()
+            response = patient.to_dict()
+            response['token'] = self.token_service.generate_token(patient)
+            return response
         return None
 
     def register(self, patient_request: 'PatientRequest') -> dict:

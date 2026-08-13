@@ -38,3 +38,4 @@ def test_login_patient(client, app):
 
     response = client.post(f"{BASE_URL}/patients/login", json=login_data)
     assert response.status_code == 200
+    assert "token" in response.get_json()
