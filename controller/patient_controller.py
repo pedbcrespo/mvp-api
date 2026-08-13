@@ -19,3 +19,10 @@ def login():
     if not patient:
         return jsonify({'error': 'Patient not found'}), 404
     return jsonify(patient), 200
+
+@patient_bp.route('/register', methods=['POST'])
+def register_patient():
+    data = request.get_json()
+    patient_request = PatientRequest.from_dict(data)
+    patient = service.register(patient_request)
+    return jsonify(patient), 201
