@@ -35,6 +35,13 @@ def update(patient_id: int):
     patient = service.update(token, patient_id, patient_request)
     return jsonify(patient), 201
 
+@patient_bp.route('/delete/<patient_email>', methods=['DELETE'])
+def delete(patient_email: str):
+    token = get_token()
+    dict = service.delete(token, patient_email)
+    status_code = 500 if 'error' in dict else 201
+    return jsonify(dict), status_code
+
 def get_token():
     auth_header = request.headers.get('Authorization')
     token = auth_header.split(' ')[1]

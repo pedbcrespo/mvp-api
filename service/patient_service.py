@@ -30,12 +30,11 @@ class PatientService:
         patient = self.repository.create(patient)
         return patient.to_dict()
 
-    def update(self, token: str, patient_id: id, patient_request: 'PatientRequest') -> dict:
+    def update(self, token: str, patient_id: int, patient_request: 'PatientRequest') -> dict:
         if not self.token_service.validate_request(token):
             raise ValueError("Invalid token")
 
         patient = self.repository.get(patient_id)
-
         if not patient:
             raise ValueError("Invalid patient data")
 
@@ -44,6 +43,17 @@ class PatientService:
         patient_to_update.email = patient.email
         patient = self.repository.update(patient_id, patient_to_update)
         return patient.to_dict()
+
+    def delete(self, token: str, patient_email: str) -> dict:
+        if not self.token_service.validate_request(token):
+            raise ValueError("Invalid token")
+
+        patient = self.repository.get_by_email(patient_email)
+        if not patient:
+            raise ValueError("Invalid patient data")
+
+        isDeleted = self.repository.delete(patient.id)
+        return {'message': 'pacient deleted'} if isDeleted else {'error': 'pacient could not be deleted'}
 
     def __validate_patient(self, patient: Patient) -> bool:
         if not patient.name or not patient.birth_date or not patient.email or not patient.password or not patient.address:
