@@ -1,10 +1,8 @@
 from dataclasses import dataclass
-
 from model.request.user_request import UserRequest
 
 @dataclass
 class PatientRequest(UserRequest):
-    name: str
     birth_date: str
     address: str
 

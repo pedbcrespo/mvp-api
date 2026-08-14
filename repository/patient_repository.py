@@ -23,7 +23,6 @@ class PatientRepository:
             return None
         patient.name = data.name
         patient.birth_date = data.birth_date
-        patient.email = data.email
         patient.password = data.password
         patient.address = data.address
         db.session.commit()
