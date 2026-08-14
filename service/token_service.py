@@ -31,8 +31,3 @@ class TokenService:
     def validate_request(token: str) -> bool:
         payload = TokenService.decode_token(token)
         return 'error' not in payload
-
-    @staticmethod
-    def validate_request_for_type(token: str) -> bool:
-        payload = TokenService.decode_token(token)
-        return 'error' not in payload

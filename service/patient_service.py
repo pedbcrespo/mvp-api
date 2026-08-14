@@ -24,20 +24,38 @@ class PatientService:
         return None
 
     def register(self, patient_request: 'PatientRequest') -> dict:
-        birth_date = datetime.strptime(patient_request.birth_date, '%Y-%m-%d').date()
-        patient = Patient(
-            name=patient_request.name,
-            email=patient_request.email,
-            password=patient_request.password,
-            birth_date=birth_date,
-            address=patient_request.address
-        )
+        patient = self.__generate_patient_by_request(patient_request)
         if not self.__validate_patient(patient):
             raise ValueError("Invalid patient data")
         patient = self.repository.create(patient)
+        return patient.to_dict()
+
+    def update(self, token: str, patient_id: id, patient_request: 'PatientRequest') -> dict:
+        if not self.token_service.validate_request(token):
+            raise ValueError("Invalid token")
+
+        patient = self.repository.get(patient_id)
+
+        if not patient:
+            raise ValueError("Invalid patient data")
+
+        patient_to_update = self.__generate_patient_by_request(patient_request)
+        patient_to_update.id = patient_id
+        patient_to_update.email = patient.email
+        patient = self.repository.update(patient_id, patient_to_update)
         return patient.to_dict()
 
     def __validate_patient(self, patient: Patient) -> bool:
         if not patient.name or not patient.birth_date or not patient.email or not patient.password or not patient.address:
             return False
         return True
+
+    def __generate_patient_by_request(self, patient_request: PatientRequest) -> Patient:
+        birth_date = datetime.strptime(patient_request.birth_date, '%Y-%m-%d').date()
+        return Patient(
+            name=patient_request.name,
+            email=patient_request.email,
+            password=patient_request.password,
+            birth_date=birth_date,
+            address=patient_request.address
+        )
