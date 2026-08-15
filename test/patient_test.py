@@ -4,6 +4,9 @@ from model.request import PatientRequest
 from model import Patient
 from datetime import datetime
 
+TEST_BASE_URL = f"{BASE_URL}/patients"
+
+
 def test_register_patient(client):
     patient_request = PatientRequest(
         name="John Doe",
@@ -12,7 +15,7 @@ def test_register_patient(client):
         birth_date="1990-01-01",
         address="Rua das Flores, 123, São Paulo, SP, Brasil"
     )
-    response = client.post(f"{BASE_URL}/patients/register", json=patient_request)
+    response = client.post(f"{TEST_BASE_URL}/register", json=patient_request)
     assert response.status_code == 201
 
 def test_login_patient(client, app):
@@ -35,7 +38,7 @@ def test_login_patient(client, app):
         "password": PASSWORD_TEST
     }
 
-    response = client.post(f"{BASE_URL}/patients/login", json=login_data)
+    response = client.post(f"{TEST_BASE_URL}/login", json=login_data)
     assert response.status_code == 200
     assert "token" in response.get_json()
 
@@ -57,7 +60,7 @@ def test_update_patient(client, app):
 
     login_data = {"email": EMAIL_TEST,"password": PASSWORD_TEST}
     
-    response = client.post(f"{BASE_URL}/patients/login", json=login_data)
+    response = client.post(f"{TEST_BASE_URL}/login", json=login_data)
     token = response.get_json()['token']
     NEW_PASSWORD_TEST = "newpasswordtest"
     NEW_NAME_TEST = "John Doe Dee"
@@ -91,9 +94,9 @@ def test_delete_patient(client, app):
 
     login_data = { "email": EMAIL_TEST, "password": PASSWORD_TEST }
         
-    response = client.post(f"{BASE_URL}/patients/login", json=login_data)
+    response = client.post(f"{TEST_BASE_URL}/login", json=login_data)
     token = response.get_json()['token']
-    response = client.delete(f"{BASE_URL}/patients/delete/", headers={"Authorization": f"Bearer {token}"})
+    response = client.delete(f"{TEST_BASE_URL}/delete/", headers={"Authorization": f"Bearer {token}"})
 
     assert response.status_code == 201
     assert 'error' not in response.get_json() 

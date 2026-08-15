@@ -26,18 +26,18 @@ def register():
     agent = service.register(agent_request)
     return jsonify(agent), 201
 
-@agent_bp.route('/update/<int:agent_id>', methods=['PUT'])
-def update(agent_id: int):
+@agent_bp.route('/update', methods=['PUT'])
+def update():
     data = request.get_json()
     token = get_token()
     agent_request = AgentRequest.from_dict(data)
-    agent = service.update(token, agent_id, agent_request)
+    agent = service.update(token, agent_request)
     return jsonify(agent), 201
 
-@agent_bp.route('/delete/<email>', methods=['DELETE'])
-def delete(email: str):
+@agent_bp.route('/delete', methods=['DELETE'])
+def delete():
     token = get_token()
-    dict = service.delete(token, email)
+    dict = service.delete(token)
     status_code = 500 if 'error' in dict else 201
     return jsonify(dict), status_code
 
