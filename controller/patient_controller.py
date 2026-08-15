@@ -35,10 +35,10 @@ def update(patient_id: int):
     patient = service.update(token, patient_id, patient_request)
     return jsonify(patient), 201
 
-@patient_bp.route('/delete/<patient_email>', methods=['DELETE'])
-def delete(patient_email: str):
+@patient_bp.route('/delete/<email>', methods=['DELETE'])
+def delete(email: str):
     token = get_token()
-    dict = service.delete(token, patient_email)
+    dict = service.delete(token, email)
     status_code = 500 if 'error' in dict else 201
     return jsonify(dict), status_code
 

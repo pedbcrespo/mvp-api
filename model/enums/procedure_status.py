@@ -1,6 +1,6 @@
-from enum import Enum
+from enum import StrEnum
 
-class ProcedureStatus(Enum):
+class ProcedureStatus(StrEnum):
     ACTIVE = 'ACTIVE'
     INTERRUPTED = 'INTERRUPTED'
     COMPLETED = 'COMPLETED'

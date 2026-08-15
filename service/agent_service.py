@@ -1,7 +1,9 @@
 from model.agent import Agent
 from model.request.agent_request import AgentRequest
+from model.enums.agent_type import AgentType
 from repository.agent_repository import AgentRepository
 from service.user_service import UserService
+
 
 class AgentService(UserService):
     def __init__(self, repository: AgentRepository):
@@ -12,7 +14,7 @@ class AgentService(UserService):
             name=user_request.name,
             email=user_request.email,
             password=user_request.password,
-            agent_type=user_request.agent_type,
+            agent_type=AgentType(user_request.agent_type),
             establishment_id=user_request.establishment_id
         )
 

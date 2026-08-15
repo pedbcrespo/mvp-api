@@ -1,6 +1,6 @@
-from enum import Enum
+from enum import StrEnum
 
-class ProcedureType(Enum):
+class ProcedureType(StrEnum):
     PHYSIOTHERAPY = 'PHYSIOTHERAPY'
     NUTRITIONAL_THERAPY = 'NUTRITIONAL_THERAPY'
     HEMODIALYSIS = 'HEMODIALYSIS'

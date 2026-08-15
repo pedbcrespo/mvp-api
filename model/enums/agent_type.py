@@ -1,6 +1,6 @@
-from enum import Enum
+from enum import StrEnum
 
-class AgentType(Enum):
+class AgentType(StrEnum):
     DOCTOR = 'DOCTOR'
     NURSE = 'NURSE'
     PHYSIOTHERAPIST = 'PHYSIOTHERAPIST'

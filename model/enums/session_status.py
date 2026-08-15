@@ -1,7 +1,7 @@
 
-from enum import Enum
+from enum import StrEnum
 
-class SessionStatus(Enum):
+class SessionStatus(StrEnum):
     SCHEDULED = 'SCHEDULED'
     DONE = 'DONE'
     MISSED = 'MISSED'
