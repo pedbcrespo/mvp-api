@@ -27,18 +27,18 @@ def register():
     patient = service.register(patient_request)
     return jsonify(patient), 201
 
-@patient_bp.route('/update/<int:patient_id>', methods=['PUT'])
-def update(patient_id: int):
+@patient_bp.route('/update/', methods=['PUT'])
+def update():
     data = request.get_json()
     token = get_token()
     patient_request = PatientRequest.from_dict(data)
-    patient = service.update(token, patient_id, patient_request)
+    patient = service.update(token, patient_request)
     return jsonify(patient), 201
 
-@patient_bp.route('/delete/<email>', methods=['DELETE'])
-def delete(email: str):
+@patient_bp.route('/delete/', methods=['DELETE'])
+def delete():
     token = get_token()
-    dict = service.delete(token, email)
+    dict = service.delete(token)
     status_code = 500 if 'error' in dict else 201
     return jsonify(dict), status_code
 

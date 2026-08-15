@@ -11,9 +11,9 @@ class PatientService(UserService):
         super().__init__(repository)
 
     @override
-    def update(self, token: str, patient_id: int, patient_request: PatientRequest) -> dict:
+    def update(self, token: str, patient_request: PatientRequest) -> dict:
         patient_request.birth_date = datetime.strptime(patient_request.birth_date, '%Y-%m-%d')
-        return super().update(token, patient_id, patient_request)
+        return super().update(token, patient_request)
 
     def _generate_user_by_request(self, user_request: PatientRequest) -> Patient:
             return Patient(

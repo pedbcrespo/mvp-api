@@ -31,3 +31,10 @@ class TokenService:
     def validate_request(token: str) -> bool:
         payload = TokenService.decode_token(token)
         return 'error' not in payload
+
+    @staticmethod
+    def get_user_id(token: str) -> int | None:
+        payload = TokenService.decode_token(token)
+        if 'error' in payload:
+            return None
+        return payload.get('id')

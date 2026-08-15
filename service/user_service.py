@@ -30,8 +30,12 @@ class UserService:
         user = self.repository.create(user)
         return user.to_dict()
 
-    def update(self, token: str, user_id: int, user_request: UserRequest) -> dict:
+    def update(self, token: str, user_request: UserRequest) -> dict:
         if not self.token_service.validate_request(token):
+            raise ValueError("Invalid token")
+        user_id = self.token_service.get_user_id(token)
+
+        if not user_id:
             raise ValueError("Invalid token")
 
         user = self.repository.get(user_id)
@@ -41,11 +45,15 @@ class UserService:
         user = self.repository.update(user_id, user_request)
         return user.to_dict()
 
-    def delete(self, token: str, email: str) -> dict:
+    def delete(self, token: str) -> dict:
         if not self.token_service.validate_request(token):
             raise ValueError("Invalid token")
+        user_id = self.token_service.get_user_id(token)
 
-        user = self.repository.get_by_email(email)
+        if not user_id:
+            raise ValueError("Invalid token")
+
+        user = self.repository.get(user_id)
         if not user:
             raise ValueError("Invalid user data")
 
