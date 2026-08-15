@@ -1,37 +1,20 @@
 from configuration import db
 from model import Patient
 from model.request import PatientRequest
+from repository.user_repository import UserRepository
 
-class PatientRepository:
+class PatientRepository(UserRepository):
     def create(self, patient: Patient) -> Patient | None:
-        db.session.add(patient)
-        db.session.commit()
-        return patient
+        return super().create(patient)
 
     def get(self, patient_id: int) -> Patient | None:
-        patient = db.session.get(Patient, patient_id)
-        return patient
+        return super().get(patient_id, Patient)
 
     def get_by_email(self, email: str) -> Patient | None:
-        patient = db.session.query(Patient).filter_by(email=email).first()
-        return patient
-
+        return super().get_by_email(email, Patient)
 
     def update(self, patient_id: int, data: PatientRequest) -> Patient | None:
-        patient = db.session.get(Patient, patient_id)
-        if not patient:
-            return None
-        patient.name = data.name
-        patient.birth_date = data.birth_date
-        patient.password = data.password
-        patient.address = data.address
-        db.session.commit()
-        return patient
+        return super().update(patient_id, data, Patient)
 
     def delete(self, patient_id: int) -> bool:
-        patient = db.session.get(Patient, patient_id)
-        if not patient:
-            return False
-        db.session.delete(patient)
-        db.session.commit()
-        return True
+        return super().delete(patient_id, Patient)
